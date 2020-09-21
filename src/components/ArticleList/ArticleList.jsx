@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Article from "../Article/Article";
 import ArticlesService from "../../services/ArticlesServices";
+import classes from "./ArticleList.module.scss";
 
 const ArticleList = () => {
   const [articles, setArticles] = useState([]);
@@ -10,7 +11,7 @@ const ArticleList = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <ul>
+    <ul className={classes["article-list"]}>
       {articles.map((article) => {
         return (
           <li key={article.id}>
