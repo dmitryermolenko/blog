@@ -1,5 +1,5 @@
 import React from "react";
-import ArticleList from "../ArticleList/ArticleList";
+import ArticleListContainer from "../../containers/ArticleListContainer/ArticleListContainer";
 import classes from "./App.module.scss";
 
 const App = () => {
@@ -7,7 +7,7 @@ const App = () => {
     <div className={classes.app}>
       <header className={classes.header}></header>
       <main className={classes.main}>
-        <ArticleList />
+        <ArticleListContainer />
       </main>
     </div>
   );

@@ -1,15 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Article from "../Article/Article";
-import ArticlesService from "../../services/ArticlesServices";
 import classes from "./ArticleList.module.scss";
 
-const ArticleList = () => {
-  const [articles, setArticles] = useState([]);
-  const articlesService = new ArticlesService();
-  useEffect(() => {
-    articlesService.getArticles().then(({ articles }) => setArticles(articles));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+const ArticleList = ({ articles }) => {
   return (
     <ul className={classes["article-list"]}>
       {articles.map((article) => {
