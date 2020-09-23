@@ -1,4 +1,5 @@
 import React from "react";
+import ReactMarkdown from "react-markdown";
 import { Link } from "react-router-dom";
 import classes from "./Article.module.scss";
 
@@ -50,7 +51,7 @@ const Article = ({ article, isFull = false }) => {
         </header>
         <section className={classes["article__body"]}>
           <p className={classes["article__description"]}>{description}</p>
-          {isFull ? body : null}
+          {isFull ? <ReactMarkdown source={body} /> : null}
         </section>
       </article>
     );
