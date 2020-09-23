@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import ArticleList from "../../components/ArticleList/ArticleList";
 import ArticlesService from "../../services/ArticlesServices";
 import { Pagination, Spin } from "antd";
-import classes from "./ArticleListContainer.module.scss";
+import classes from "./ArticleListPage.module.scss";
 
-const ArticleListContainer = () => {
+const ArticleListPage = () => {
   const [articles, setArticles] = useState([]);
   const [activePage, setActivePage] = useState(1);
   const [isLoading, setLoadingStatus] = useState(true);
@@ -42,4 +42,4 @@ const ArticleListContainer = () => {
   );
 };
 
-export default ArticleListContainer;
+export default ArticleListPage;

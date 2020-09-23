@@ -7,7 +7,7 @@ const ArticleList = ({ articles }) => {
     <ul className={classes["article-list"]}>
       {articles.map((article) => {
         return (
-          <li key={article.id}>
+          <li key={article.slug}>
             <Article article={article} />
           </li>
         );

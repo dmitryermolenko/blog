@@ -9,4 +9,11 @@ export default class ArticlesService extends Component {
     );
     return response.json();
   }
+
+  async getArticle(slug) {
+    const response = await fetch(
+      `http://conduit.productionready.io/api/articles/${slug}`
+    );
+    return response.json();
+  }
 }
