@@ -1,0 +1,38 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 20px 15px;
+  font-size: 18px;
+  line-height: 28px;
+  background-color: #FFFFFF; 
+  
+}
+
+.header__title {
+  margin: 0;
+  padding: 0;
+}
+
+.header__title-link {
+  padding-top: 5px;
+  font-size: 18px;
+  line-height: 28px;
+  color: #000000;
+}
+
+.header__signin-link {
+  margin-left: auto;
+  margin-right: 20px;
+}
+
+.header__signin-link,
+.header__signup-link {
+  padding: 5px 10px;
+}
+
+.header__signin-link:active,
+.header__signup-link:active {
+  color: #52C41A;
+  border: 1px solid #52C41A;
+  border-radius: 5px;
+}
