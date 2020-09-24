@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Header from "../Header/Header";
 import ArticleListPage from "../../containers/ArticleListPage/ArticleListPage";
 import ArticlePage from "../../containers/ArticlePage/ArticlePage";
+import SignInPage from "../SignInPage/SignInPage";
 import classes from "./App.module.scss";
 
 const App = () => {
@@ -20,6 +21,7 @@ const App = () => {
               return <ArticlePage slug={slug} exact />;
             }}
           />
+          <Route path="/sign-in" component={SignInPage} />
         </main>
       </div>
     </Router>
