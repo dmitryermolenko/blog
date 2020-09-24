@@ -1,8 +1,11 @@
 import React from "react";
+import LoggedinUserView from "../LoggedinUserView/LoggedinUserView";
+import LoggedoutUserView from "../LoggedoutUserView/LoggedoutUserView";
 import { Link } from "react-router-dom";
 import classes from "./Header.module.scss";
 
 const Header = () => {
+  const loggedin = true; /*временно */
   return (
     <header className={classes.header}>
       <h1 className={classes["header__title"]}>
@@ -10,12 +13,7 @@ const Header = () => {
           Realworld Blog
         </Link>
       </h1>
-      <Link className={classes["header__signin-link"]} to="/sign-in">
-        Sign In
-      </Link>
-      <Link className={classes["header__signup-link"]} to="/sign-up">
-        Sign Up
-      </Link>
+      {loggedin ? <LoggedinUserView /> : <LoggedoutUserView />}
     </header>
   );
 };

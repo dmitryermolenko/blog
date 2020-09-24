@@ -1,11 +1,9 @@
 .header {
   display: flex;
-  justify-content: space-between;
   padding: 20px 20px 15px;
   font-size: 18px;
   line-height: 28px;
   background-color: #FFFFFF; 
-  
 }
 
 .header__title {
@@ -14,21 +12,63 @@
 }
 
 .header__title-link {
-  padding-top: 5px;
   font-size: 18px;
   line-height: 28px;
   color: #000000;
 }
 
+.header__loggedout,
+.header__loggedin {
+ display: flex;
+ align-items: baseline;
+ margin-left: auto;
+}
+
+.header__loggedout {
+  align-items: flex-end;
+}
+
+.header__userinfo {
+  display: flex;
+  align-items: flex-end;
+  margin-right: 25px;
+}
+
+.header__username {
+  margin-right: 10px;
+}
+
+.header__create-article {
+  margin-right: 20px;
+  padding: 0 5px;
+  font-size: 16px;
+}
+
+.header__create-article:active {
+  color: #52C41A;
+  border: 1px solid #52C41A;
+  border-radius: 5px;
+}
+
+.header__logout {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 5px 10px;
+  
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  outline: none;
+}
+
+.header__logout:active {
+  border: 1px solid #000000;
+}
+
 .header__signin-link {
-  margin-left: auto;
   margin-right: 20px;
 }
 
-.header__signin-link,
-.header__signup-link {
-  padding: 5px 10px;
-}
 
 .header__signin-link:active,
 .header__signup-link:active {
