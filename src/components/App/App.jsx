@@ -4,6 +4,7 @@ import Header from "../Header/Header";
 import ArticleListPage from "../../containers/ArticleListPage/ArticleListPage";
 import ArticlePage from "../../containers/ArticlePage/ArticlePage";
 import SignInPage from "../SignInPage/SignInPage";
+import SignUpPage from "../SignUpPage/SignUpPage";
 import classes from "./App.module.scss";
 
 const App = () => {
@@ -21,7 +22,8 @@ const App = () => {
               return <ArticlePage slug={slug} exact />;
             }}
           />
-          <Route path="/sign-in" component={SignInPage} />
+          <Route path="/sign-in" component={SignInPage} exact />
+          <Route path="/sign-up" component={SignUpPage} exact />
         </main>
       </div>
     </Router>

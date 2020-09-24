@@ -15,7 +15,7 @@ const SignInPage = () => {
           placeholder="Email address"
           type="email"
         />
-        <label htmlFor="password">Email Address</label>
+        <label htmlFor="password">Password</label>
         <Input
           className={classes["signin__input"]}
           id="password"
@@ -30,7 +30,7 @@ const SignInPage = () => {
           Login
         </Button>
         <p className={classes["signin__question"]}>
-          Don't you have an account? <Link to="/sing-up">Sign Up</Link>{" "}
+          Don't you have an account? <Link to="/sign-up">Sign Up</Link>
         </p>
       </form>
     </div>
