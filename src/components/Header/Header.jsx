@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import classes from "./Header.module.scss";
 
 const Header = () => {
-  const loggedin = true; /*временно */
+  const loggedin = false; /*временно */
   return (
     <header className={classes.header}>
       <h1 className={classes["header__title"]}>
