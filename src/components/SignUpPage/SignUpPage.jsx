@@ -18,6 +18,7 @@ const SignUpPage = () => {
     mode: "onChange",
     defaultValues: {
       username: "",
+      email: "",
       password: "",
       repeat: "",
     },
@@ -64,6 +65,28 @@ const SignUpPage = () => {
             maxLength: { value: 20, message: "Max length is 20 characters" },
           }}
         />
+        <label htmlFor="email">Email Address</label>
+        {errors.email && (
+          <p style={{ margin: 0, color: "red" }}>{errors.email.message}</p>
+        )}
+        <Controller
+          name="email"
+          control={control}
+          as={
+            <Input
+              className={classes["signup__input"]}
+              id="email"
+              placeholder="Email Address"
+            />
+          }
+          rules={{
+            required: "Email is required",
+            pattern: {
+              value: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
+              message: "Invalid email format",
+            },
+          }}
+        />
         <label htmlFor="password">Password</label>
         {errors.password && (
           <p style={{ margin: 0, color: "red" }}>{errors.password.message}</p>
@@ -89,10 +112,6 @@ const SignUpPage = () => {
             required: "Password is required",
             minLength: { value: 6, message: "Min length is 6 characters" },
             maxLength: { value: 40, message: "Max length is 40 characters" },
-            pattern: {
-              value: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
-              message: "Invalid email format",
-            },
           }}
         />
         <label htmlFor="password-repeat">Repeat Password</label>
