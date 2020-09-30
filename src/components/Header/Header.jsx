@@ -1,11 +1,11 @@
 import React from "react";
+import { connect } from "react-redux";
 import LoggedinUserView from "../LoggedinUserView/LoggedinUserView";
 import LoggedoutUserView from "../LoggedoutUserView/LoggedoutUserView";
 import { Link } from "react-router-dom";
 import classes from "./Header.module.scss";
 
-const Header = () => {
-  const loggedin = false; /*временно */
+const Header = ({ token }) => {
   return (
     <header className={classes.header}>
       <h1 className={classes["header__title"]}>
@@ -13,9 +13,14 @@ const Header = () => {
           Realworld Blog
         </Link>
       </h1>
-      {loggedin ? <LoggedinUserView /> : <LoggedoutUserView />}
+      {token ? <LoggedinUserView /> : <LoggedoutUserView />}
     </header>
   );
 };
 
-export default Header;
+const mapStateToProps = ({
+  userData: {
+    user: { token },
+  },
+}) => ({ token });
+export default connect(mapStateToProps)(Header);
