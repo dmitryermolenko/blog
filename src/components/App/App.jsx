@@ -16,13 +16,7 @@ const App = () => {
         <main className={classes.main}>
           <Route path="/" component={ArticleListPage} exact />
           <Route path="/articles" component={ArticleListPage} exact />
-          <Route
-            path="/articles/:slug"
-            render={({ match }) => {
-              const { slug } = match.params;
-              return <ArticlePage slug={slug} exact />;
-            }}
-          />
+          <Route path="/articles/:slug" component={ArticlePage} exact />
           <Route path="/sign-in" component={SignInPage} exact />
           <Route path="/sign-up" component={SignUpPage} exact />
           <Route path="/profile" component={EditProfilePage} exact />

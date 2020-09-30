@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { withRouter } from "react-router-dom";
 import ArticleList from "../../components/ArticleList/ArticleList";
 import ArticlesService from "../../services/ArticlesServices";
 import { Pagination, Spin } from "antd";
 import classes from "./ArticleListPage.module.scss";
 
 const ArticleListPage = (props) => {
-  console.log(props);
   const [articles, setArticles] = useState([]);
   const [activePage, setActivePage] = useState(1);
   const [isLoading, setLoadingStatus] = useState(true);
   const articlesService = new ArticlesService();
+
   useEffect(() => {
     articlesService.getArticles().then(({ articles }) => {
       setLoadingStatus(false);
@@ -44,4 +43,4 @@ const ArticleListPage = (props) => {
   );
 };
 
-export default withRouter(ArticleListPage);
+export default ArticleListPage;

@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { Spin, Alert } from "antd";
 import ArticlesService from "../../services/ArticlesServices";
 import Article from "../../components/Article/Article";
 import classes from "../ArticleListPage/ArticleListPage.module.scss";
 
-const ArticlePage = ({ slug }) => {
+const ArticlePage = () => {
   const articlesService = new ArticlesService();
   const [article, setArticle] = useState(null);
   const [isLoading, setLoadingStatus] = useState(true);
   const [hasError, setError] = useState(false);
+  const { slug } = useParams();
   useEffect(() => {
     articlesService
       .getArticle(slug)
