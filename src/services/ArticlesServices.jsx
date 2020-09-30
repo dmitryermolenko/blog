@@ -28,4 +28,34 @@ export default class ArticlesService extends Component {
 
     return response.json();
   }
+
+  async registerUser(data) {
+    const response = await fetch(
+      "https://conduit.productionready.io/api/users",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+        },
+        body: JSON.stringify(data),
+      }
+    );
+
+    return response.json();
+  }
+
+  async loginUser(data) {
+    const response = await fetch(
+      "https://conduit.productionready.io/api/users/login",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+        },
+        body: JSON.stringify(data),
+      }
+    );
+
+    return response.json();
+  }
 }
