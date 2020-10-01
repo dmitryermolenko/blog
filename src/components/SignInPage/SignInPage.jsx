@@ -1,15 +1,41 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 import { Input, Button } from "antd";
+import ArticlesService from "../../services/ArticlesServices";
+import setUser from "../../actions/actions";
 import classes from "./SignInPage.module.scss";
 
-const SignInPage = () => {
+const SignInPage = ({ token, setUser }) => {
+  const articlesService = new ArticlesService();
+  const history = useHistory();
+
+  useEffect(() => {
+    console.log(token);
+    if (token) {
+      history.push("/");
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
+
   const { control, handleSubmit, errors } = useForm({
     mode: "onChange",
   });
 
-  const onSubmit = (data) => {};
+  const onSubmit = ({ email, password }) => {
+    const requestBody = {
+      user: {
+        email,
+        password,
+      },
+    };
+
+    articlesService.loginUser(requestBody).then(({ user }) => {
+      setUser(user);
+    });
+  };
 
   return (
     <div className={classes.signin}>
@@ -73,4 +99,13 @@ const SignInPage = () => {
   );
 };
 
-export default SignInPage;
+const mapStateToProps = ({
+  userData: {
+    user: { token },
+  },
+}) => ({ token });
+const mapDispatchToProps = {
+  setUser,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignInPage);

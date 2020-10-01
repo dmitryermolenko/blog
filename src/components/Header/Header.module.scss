@@ -35,19 +35,27 @@
 }
 
 .header__username {
+  color: #000000;
   margin-right: 10px;
 }
 
 .header__create-article {
   margin-right: 20px;
-  padding: 0 5px;
+  padding: 3px 5px;
   font-size: 16px;
+  color: #000000;
+  border: 1px solid #000000;
+  border-radius: 5px;
 }
 
 .header__create-article:active {
   color: #52C41A;
-  border: 1px solid #52C41A;
-  border-radius: 5px;
+  border-color: #52C41A;
+}
+
+.header__create-article:hover {
+  color: #52C41A;
+  border-color: #52C41A;
 }
 
 .header__logout {
@@ -57,18 +65,31 @@
   
   border: none;
   background-color: transparent;
+  border: 1px solid #000000;
+  border-radius: 5px;
   cursor: pointer;
   outline: none;
 }
 
-.header__logout:active {
-  border: 1px solid #000000;
+.header__logout:active,
+.header__logout:hover{
+  color: #52C41A;
+  border-color: #52C41A;
 }
 
 .header__signin-link {
   margin-right: 20px;
+  color: #000000;
 }
 
+.header__signup-link {
+  color: #000000;
+}
+
+.header__signin-link:hover,
+.header__signup-link:hover {
+  color: #52C41A;
+}
 
 .header__signin-link:active,
 .header__signup-link:active {

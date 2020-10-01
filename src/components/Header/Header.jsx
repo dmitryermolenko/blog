@@ -5,7 +5,8 @@ import LoggedoutUserView from "../LoggedoutUserView/LoggedoutUserView";
 import { Link } from "react-router-dom";
 import classes from "./Header.module.scss";
 
-const Header = ({ token }) => {
+const Header = ({ user = {} }) => {
+  const { token } = user;
   return (
     <header className={classes.header}>
       <h1 className={classes["header__title"]}>
@@ -18,9 +19,5 @@ const Header = ({ token }) => {
   );
 };
 
-const mapStateToProps = ({
-  userData: {
-    user: { token },
-  },
-}) => ({ token });
+const mapStateToProps = ({ userData: { user } }) => ({ user });
 export default connect(mapStateToProps)(Header);
