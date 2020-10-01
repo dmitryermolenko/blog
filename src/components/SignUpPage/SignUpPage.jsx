@@ -1,10 +1,23 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 import { useForm, Controller } from "react-hook-form";
-import { Input, Button } from "antd";
+import { Input, Button, Alert } from "antd";
+import ErrorIndicator from "../ErrorIndicator/ErrorIndicator";
+import ArticlesService from "../../services/ArticlesServices";
 import classes from "./SignUpPage.module.scss";
 
-const SignUpPage = () => {
+const SignUpPage = ({ user = {} }) => {
+  const articlesService = new ArticlesService();
+
+  const [serverErrors, setServerErrors] = useState({
+    email: null,
+    username: null,
+  });
+  const [isSignUpSuccessfull, setSuccessfullSignUp] = useState(false);
+
+  const { token } = user;
+
   const {
     register,
     control,
@@ -38,27 +51,77 @@ const SignUpPage = () => {
     }
   };
 
-  const onSubmit = (data) => {};
+  const onSubmit = ({ username, email, password }) => {
+    const requestBody = {
+      user: {
+        username,
+        email,
+        password,
+      },
+    };
 
+    articlesService
+      .registerUser(requestBody)
+      .then((response) => {
+        if (response.errors) {
+          setServerErrors(response.errors);
+          return;
+        }
+
+        if (response.user.token) {
+          setSuccessfullSignUp(true);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  if (token) {
+    return <Redirect to="/" />;
+  }
+
+  if (isSignUpSuccessfull) {
+    return (
+      <>
+        <Alert
+          description="Registration compleated successfully"
+          type="success"
+          showIcon
+        />
+        <Link to="/sign-in">
+          <Button type="primary">Back to Login Page</Button>
+        </Link>
+      </>
+    );
+  }
   return (
     <div className={classes.signup}>
-      <form action="" onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <h1 className={classes["signup__title"]}>Sign Up</h1>
         <label htmlFor="username">Username</label>
         {errors.username && (
-          <p style={{ margin: 0, color: "red" }}>{errors.username.message}</p>
+          <ErrorIndicator errorMessage={errors.username.message} />
+        )}
+        {serverErrors.username && (
+          <ErrorIndicator errorMessage={serverErrors.username} />
         )}
         <Controller
           name="username"
           control={control}
-          onChange={() => console.log("changed")}
-          as={
+          render={() => (
             <Input
               className={classes["signup__input"]}
               id="username"
               placeholder="Username"
+              onChange={(evt) => {
+                setValue("username", evt.target.value, {
+                  shouldValidate: true,
+                });
+                if (serverErrors.username) {
+                  setServerErrors({ ...serverErrors, username: null });
+                }
+              }}
             />
-          }
+          )}
           rules={{
             required: "Username is required",
             minLength: { value: 3, message: "Min length is 3 characters" },
@@ -66,19 +129,26 @@ const SignUpPage = () => {
           }}
         />
         <label htmlFor="email">Email Address</label>
-        {errors.email && (
-          <p style={{ margin: 0, color: "red" }}>{errors.email.message}</p>
+        {errors.email && <ErrorIndicator errorMessage={errors.email.message} />}
+        {serverErrors.email && (
+          <ErrorIndicator errorMessage={serverErrors.email} />
         )}
         <Controller
           name="email"
           control={control}
-          as={
+          render={() => (
             <Input
               className={classes["signup__input"]}
               id="email"
               placeholder="Email Address"
+              onChange={(evt) => {
+                setValue("email", evt.target.value, { shouldValidate: true });
+                if (serverErrors.email) {
+                  setServerErrors({ ...serverErrors, email: null });
+                }
+              }}
             />
-          }
+          )}
           rules={{
             required: "Email is required",
             pattern: {
@@ -89,7 +159,7 @@ const SignUpPage = () => {
         />
         <label htmlFor="password">Password</label>
         {errors.password && (
-          <p style={{ margin: 0, color: "red" }}>{errors.password.message}</p>
+          <ErrorIndicator errorMessage={errors.password.message} />
         )}
         <Controller
           name="password"
@@ -115,8 +185,8 @@ const SignUpPage = () => {
           }}
         />
         <label htmlFor="password-repeat">Repeat Password</label>
-        {errors["repeat"] && (
-          <p style={{ margin: 0, color: "red" }}>{errors["repeat"].message}</p>
+        {errors.repeat && (
+          <p style={{ margin: 0, color: "red" }}>{errors.repeat.message}</p>
         )}
         <Controller
           name="repeat"
@@ -163,4 +233,6 @@ const SignUpPage = () => {
   );
 };
 
-export default SignUpPage;
+const mapStateToProps = ({ userData: { user } }) => ({ user });
+
+export default connect(mapStateToProps)(SignUpPage);

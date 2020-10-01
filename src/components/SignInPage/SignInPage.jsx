@@ -1,24 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 import { Input, Button } from "antd";
 import ArticlesService from "../../services/ArticlesServices";
+import ErrorIndicator from "../ErrorIndicator/ErrorIndicator";
 import setUser from "../../actions/actions";
 import classes from "./SignInPage.module.scss";
 
-const SignInPage = ({ token, setUser }) => {
+const SignInPage = ({ user = {}, setUser }) => {
   const articlesService = new ArticlesService();
-  const history = useHistory();
-
-  useEffect(() => {
-    console.log(token);
-    if (token) {
-      history.push("/");
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token]);
+  const [serverErrors, setServerErrors] = useState({
+    "email or password": null,
+  });
+  const { token } = user;
 
   const { control, handleSubmit, errors } = useForm({
     mode: "onChange",
@@ -32,19 +27,31 @@ const SignInPage = ({ token, setUser }) => {
       },
     };
 
-    articlesService.loginUser(requestBody).then(({ user }) => {
-      setUser(user);
-    });
+    articlesService
+      .loginUser(requestBody)
+      .then((response) => {
+        if (response.errors) {
+          setServerErrors(response.errors);
+          return;
+        }
+
+        if (response.user.token) {
+          setUser(response.user);
+        }
+      })
+      .catch((err) => console.log(err));
   };
+
+  if (token) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <div className={classes.signin}>
-      <form action="" onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <h1 className={classes["signin__title"]}>Sign In</h1>
         <label htmlFor="email">Email Address</label>
-        {errors.email && (
-          <p style={{ margin: 0, color: "red" }}>{errors.email.message}</p>
-        )}
+        {errors.email && <ErrorIndicator errorMessage={errors.email.message} />}
         <Controller
           name="email"
           control={control}
@@ -67,7 +74,7 @@ const SignInPage = ({ token, setUser }) => {
 
         <label htmlFor="password">Password</label>
         {errors.password && (
-          <p style={{ margin: 0, color: "red" }}>{errors.password.message}</p>
+          <ErrorIndicator errorMessage={errors.password.message} />
         )}
         <Controller
           name="password"
@@ -91,19 +98,21 @@ const SignInPage = ({ token, setUser }) => {
         >
           Login
         </Button>
-        <p className={classes["signin__question"]}>
-          Don't you have an account? <Link to="/sign-up">Sign Up</Link>
-        </p>
       </form>
+      {serverErrors["email or password"] && (
+        <ErrorIndicator
+          style={{ textAlign: "center" }}
+          errorMessage={`email or password ${serverErrors["email or password"]}`}
+        />
+      )}
+      <p className={classes["signin__question"]}>
+        Don't you have an account? <Link to="/sign-up">Sign Up</Link>
+      </p>
     </div>
   );
 };
 
-const mapStateToProps = ({
-  userData: {
-    user: { token },
-  },
-}) => ({ token });
+const mapStateToProps = ({ userData: { user } }) => ({ user });
 const mapDispatchToProps = {
   setUser,
 };
