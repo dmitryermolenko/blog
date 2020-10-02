@@ -1,0 +1,14 @@
+input.form__input,
+textarea.form__input {
+  margin-bottom: 20px;
+  padding: 10px;
+}
+
+button.form__submit {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  padding: 20px 150px;
+  bottom: 50px;
+  left: 30px;
+}
