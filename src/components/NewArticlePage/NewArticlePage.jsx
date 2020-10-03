@@ -32,13 +32,16 @@ const NewArticlePage = () => {
         tagList,
       },
     };
-    console.log(requestBody);
+
     articlesService
       .createArticle(requestBody)
       .then(({ article: { slug } }) => history.push(`/articles/${slug}`))
       .catch((err) => console.log(err));
   };
 
+  if (!localStorage.getItem("token")) {
+    history.push("/");
+  }
   return (
     <div className={classes["article-page"]}>
       <h2 className={classes["article-page__title"]}>Create new article</h2>
