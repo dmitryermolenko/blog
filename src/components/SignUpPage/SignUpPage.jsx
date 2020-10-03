@@ -7,7 +7,7 @@ import ErrorIndicator from "../ErrorIndicator/ErrorIndicator";
 import ArticlesService from "../../services/ArticlesServices";
 import classes from "./SignUpPage.module.scss";
 
-const SignUpPage = ({ user = {} }) => {
+const SignUpPage = () => {
   const articlesService = new ArticlesService();
 
   const [serverErrors, setServerErrors] = useState({
@@ -15,8 +15,6 @@ const SignUpPage = ({ user = {} }) => {
     username: null,
   });
   const [isSignUpSuccessfull, setSuccessfullSignUp] = useState(false);
-
-  const { token } = user;
 
   const {
     register,
@@ -68,14 +66,12 @@ const SignUpPage = ({ user = {} }) => {
           return;
         }
 
-        if (response.user.token) {
-          setSuccessfullSignUp(true);
-        }
+        setSuccessfullSignUp(true);
       })
       .catch((err) => console.log(err));
   };
 
-  if (token) {
+  if (localStorage.getItem("token")) {
     return <Redirect to="/" />;
   }
 
