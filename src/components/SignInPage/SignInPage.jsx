@@ -13,7 +13,6 @@ const SignInPage = ({ user = {}, setUser }) => {
   const [serverErrors, setServerErrors] = useState({
     "email or password": null,
   });
-  const { token } = user;
 
   const { control, handleSubmit, errors } = useForm({
     mode: "onChange",
@@ -34,15 +33,13 @@ const SignInPage = ({ user = {}, setUser }) => {
           setServerErrors(response.errors);
           return;
         }
-
-        if (response.user.token) {
-          setUser(response.user);
-        }
+        localStorage.setItem("token", response.user.token);
+        setUser(response.user);
       })
       .catch((err) => console.log(err));
   };
 
-  if (token) {
+  if (localStorage.getItem("token")) {
     return <Redirect to="/" />;
   }
 

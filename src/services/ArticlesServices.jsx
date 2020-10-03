@@ -58,4 +58,35 @@ export default class ArticlesService extends Component {
 
     return response.json();
   }
+
+  async createArticle(data, token) {
+    const response = await fetch(
+      "https://conduit.productionready.io/api/articles",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+          Authorization: `Token ${token}`,
+        },
+        body: JSON.stringify(data),
+      }
+    );
+
+    return response.json();
+  }
+
+  async getCurrentUser() {
+    const response = await fetch(
+      "https://conduit.productionready.io/api/user",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+          Authorization: `Token ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    return response.json();
+  }
 }

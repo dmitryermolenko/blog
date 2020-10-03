@@ -1,22 +1,13 @@
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import ErrorIndicator from "../ErrorIndicator/ErrorIndicator";
-import ArticlesService from "../../services/ArticlesServices";
 import { Input, Button } from "antd";
 import classes from "./ArticleForm.module.scss";
 
-const ArticleForm = () => {
-  const articlesService = new ArticlesService();
+const ArticleForm = ({ onSubmitArticle }) => {
   const { handleSubmit, control, errors } = useForm({ mode: "onChange" });
-  const onSubmit = ({ title, description, body }) => {
-    const requestBody = {
-      article: {
-        title,
-        description,
-        body,
-      },
-    };
-    articlesService.createArticle();
+  const onSubmit = (data) => {
+    onSubmitArticle(data);
   };
 
   return (

@@ -1,10 +1,14 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import TagList from "../TagList/TagList";
 import TagsForm from "../TagsForm/TagsForm";
 import ArticleForm from "../ArticleForm/ArticleForm";
+import ArticlesService from "../../services/ArticlesServices";
 import classes from "./NewArticlePage.module.scss";
 
 const NewArticlePage = () => {
+  const articlesService = new ArticlesService();
+  const history = useHistory();
   const [tags, setTags] = useState([]);
   const [tagId, setTagId] = useState(1);
 
@@ -18,10 +22,27 @@ const NewArticlePage = () => {
     setTags(copyTags);
   };
 
+  const submitArticle = ({ title, description, body }) => {
+    const tagList = tags.map((tag) => tag.name);
+    const requestBody = {
+      article: {
+        title,
+        description,
+        body,
+        tagList,
+      },
+    };
+    console.log(requestBody);
+    articlesService
+      .createArticle(requestBody)
+      .then(({ article: { slug } }) => history.push(`/articles/${slug}`))
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div className={classes["article-page"]}>
       <h2 className={classes["article-page__title"]}>Create new article</h2>
-      <ArticleForm />
+      <ArticleForm onSubmitArticle={submitArticle} />
       <TagList tags={tags} onDeleteTag={deleteTag} />
       <TagsForm onAddTag={addTag} />
     </div>
