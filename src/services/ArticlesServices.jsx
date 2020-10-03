@@ -59,14 +59,14 @@ export default class ArticlesService extends Component {
     return response.json();
   }
 
-  async createArticle(data, token) {
+  async createArticle(data) {
     const response = await fetch(
       "https://conduit.productionready.io/api/articles",
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json;charset=utf-8",
-          Authorization: `Token ${token}`,
+          Authorization: `Token ${localStorage.getItem("token")}`,
         },
         body: JSON.stringify(data),
       }
