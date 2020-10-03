@@ -7,6 +7,7 @@ import SignInPage from "../SignInPage/SignInPage";
 import SignUpPage from "../SignUpPage/SignUpPage";
 import EditProfilePage from "../EditProfilePage/EditProfilePage";
 import NewArticlePage from "../NewArticlePage/NewArticlePage";
+import EditArticlePage from "../EditArticlePage/EditArticlePage";
 import classes from "./App.module.scss";
 
 const App = () => {
@@ -22,6 +23,11 @@ const App = () => {
           <Route path="/sign-up" component={SignUpPage} exact />
           <Route path="/profile" component={EditProfilePage} exact />
           <Route path="/new-article" component={NewArticlePage} exact />
+          <Route
+            path="/articles/:slug/edit"
+            component={EditArticlePage}
+            exact
+          />
         </main>
       </div>
     </Router>

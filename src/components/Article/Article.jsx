@@ -1,11 +1,12 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Button } from "antd";
 import classes from "./Article.module.scss";
 
 const Article = ({ article, isFull = false, user = {} }) => {
+  const history = useHistory();
   const { username: currentUser } = user;
   if (article) {
     const {
@@ -56,7 +57,11 @@ const Article = ({ article, isFull = false, user = {} }) => {
                 <Button className={classes["article__delete"]} type="danger">
                   Delete
                 </Button>
-                <Button className={classes["article__edit"]} type="primary">
+                <Button
+                  className={classes["article__edit"]}
+                  type="primary"
+                  onClick={() => history.push(`/articles/${slug}/edit`)}
+                >
                   Edit
                 </Button>
               </div>

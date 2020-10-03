@@ -17,7 +17,7 @@ const LoggedinUserView = ({ user, setUser }) => {
         className={classes["header__logout"]}
         onClick={() => {
           localStorage.removeItem("token");
-          setUser(null);
+          setUser({});
           history.push("/");
         }}
       >
