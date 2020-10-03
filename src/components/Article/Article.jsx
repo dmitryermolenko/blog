@@ -1,9 +1,12 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { Button } from "antd";
 import classes from "./Article.module.scss";
 
-const Article = ({ article, isFull = false }) => {
+const Article = ({ article, isFull = false, user = {} }) => {
+  const { username: currentUser } = user;
   if (article) {
     const {
       title,
@@ -34,6 +37,7 @@ const Article = ({ article, isFull = false }) => {
               </button>
             </div>
             <span className={classes["article__tags"]}>{tagList}</span>
+            <p className={classes["article__description"]}>{description}</p>
           </div>
           <div className={classes["article__right"]}>
             <div className={classes["article__userinfo"]}>
@@ -47,10 +51,19 @@ const Article = ({ article, isFull = false }) => {
               height="46"
               alt="Avatar"
             ></img>
+            {isFull && username === currentUser ? (
+              <div className={classes["article__buttons"]}>
+                <Button className={classes["article__delete"]} type="danger">
+                  Delete
+                </Button>
+                <Button className={classes["article__edit"]} type="primary">
+                  Edit
+                </Button>
+              </div>
+            ) : null}
           </div>
         </header>
         <section className={classes["article__body"]}>
-          <p className={classes["article__description"]}>{description}</p>
           {isFull ? <ReactMarkdown source={body} /> : null}
         </section>
       </article>
@@ -59,5 +72,5 @@ const Article = ({ article, isFull = false }) => {
 
   return null;
 };
-
-export default Article;
+const mapStateToProps = ({ userData: { user } }) => ({ user });
+export default connect(mapStateToProps)(Article);

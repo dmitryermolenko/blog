@@ -48,6 +48,7 @@
 .article__right {
   width: 40%;
   margin-left: auto;
+  margin-bottom: 20px;
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
@@ -58,6 +59,27 @@
   width: 46px;
   height: 46px;
   border-radius: 50%;
+}
+
+.article__buttons {
+  margin-top: 20px;
+}
+
+button.article__delete {
+  margin-right: 20px;
+  background-color: #FFFFFF;
+  color: #F5222D;
+  border-color: #F5222D;
+}
+
+button.article__edit {
+  background-color: #FFFFFF;
+  color: #52C41A;
+  border-color: #52C41A;
+}
+
+button.article__edit:hover {
+  background-color: #52C41A;
 }
 
 .article__userinfo {
