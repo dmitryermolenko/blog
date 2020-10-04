@@ -59,6 +59,21 @@ export default class ArticlesService extends Component {
     return response.json();
   }
 
+  async getCurrentUser() {
+    const response = await fetch(
+      "https://conduit.productionready.io/api/user",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+          Authorization: `Token ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    return response.json();
+  }
+
   async createArticle(data) {
     const response = await fetch(
       "https://conduit.productionready.io/api/articles",
@@ -75,15 +90,16 @@ export default class ArticlesService extends Component {
     return response.json();
   }
 
-  async getCurrentUser() {
+  async updateArticle(data, slug) {
     const response = await fetch(
-      "https://conduit.productionready.io/api/user",
+      `https://conduit.productionready.io/api/articles/${slug}`,
       {
-        method: "GET",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json;charset=utf-8",
           Authorization: `Token ${localStorage.getItem("token")}`,
         },
+        body: JSON.stringify(data),
       }
     );
 

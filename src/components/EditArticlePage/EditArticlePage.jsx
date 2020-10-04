@@ -5,6 +5,7 @@ import TagsForm from "../TagsForm/TagsForm";
 import ArticleForm from "../ArticleForm/ArticleForm";
 import ArticlesService from "../../services/ArticlesServices";
 import { Alert, Spin } from "antd";
+import { addTag, deleteTag } from "../../utils/utils";
 import classes from "../NewArticlePage/NewArticlePage.module.scss";
 import * as styles from "../../containers/ArticleListPage/ArticleListPage.module.scss";
 
@@ -18,11 +19,6 @@ const EditArticlePage = () => {
   const [hasError, setError] = useState(false);
 
   useEffect(() => {
-    /*if (articleData) {
-      setTags(articleData.tagList.map(tag => {
-        return {name: tag, id: `${tag}${Math.random()}`};
-      }));
-    }*/
     articlesService
       .getArticle(slug)
       .then(({ article }) => {
@@ -41,15 +37,6 @@ const EditArticlePage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const addTag = (tag) => {
-    setTags([...tags, { name: tag, id: `${tag}${Math.random()}` }]);
-  };
-
-  const deleteTag = (tagId) => {
-    const copyTags = tags.filter((tag) => tag.id !== tagId);
-    setTags(copyTags);
-  };
-
   const submitArticle = ({ title, description, body }) => {
     const tagList = tags.map((tag) => tag.name);
     const requestBody = {
@@ -62,7 +49,7 @@ const EditArticlePage = () => {
     };
 
     articlesService
-      .createArticle(requestBody)
+      .updateArticle(requestBody, slug)
       .then(({ article: { slug } }) => history.push(`/articles/${slug}`))
       .catch((err) => console.log(err));
   };
@@ -85,8 +72,11 @@ const EditArticlePage = () => {
       {currentArticle && (
         <ArticleForm onSubmitArticle={submitArticle} article={currentArticle} />
       )}
-      <TagList tags={tags} onDeleteTag={deleteTag} />
-      <TagsForm onAddTag={addTag} />
+      <TagList
+        tags={tags}
+        onDeleteTag={(tag) => deleteTag(tags, tag, setTags)}
+      />
+      <TagsForm onAddTag={(tag) => addTag(tags, tag, setTags)} />
     </div>
   );
 };
