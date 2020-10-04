@@ -4,7 +4,7 @@ import ErrorIndicator from "../ErrorIndicator/ErrorIndicator";
 import { Input, Button } from "antd";
 import classes from "./ArticleForm.module.scss";
 
-const ArticleForm = ({ onSubmitArticle, article }) => {
+const ArticleForm = ({ onSubmitArticle, article = {} }) => {
   const { handleSubmit, control, errors } = useForm({
     mode: "onChange",
     defaultValues: {

@@ -40,7 +40,7 @@ const NewArticlePage = () => {
   };
 
   if (!localStorage.getItem("token")) {
-    history.push("/");
+    history.push("/sign-in");
   }
   return (
     <div className={classes["article-page"]}>
