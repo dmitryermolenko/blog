@@ -105,4 +105,19 @@ export default class ArticlesService extends Component {
 
     return response.json();
   }
+
+  async deleteArticle(slug) {
+    const response = await fetch(
+      `https://conduit.productionready.io/api/articles/${slug}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+          Authorization: `Token ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    return response.json();
+  }
 }

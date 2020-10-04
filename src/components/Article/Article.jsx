@@ -1,13 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { connect } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import { Button } from "antd";
+import ModalWarning from "../ModalWarning/ModalWarning";
+import ArticleService from "../../services/ArticlesServices";
 import classes from "./Article.module.scss";
 
 const Article = ({ article, isFull = false, user = {} }) => {
+  const articleService = new ArticleService();
+  const [isModalVisible, setModalVisibility] = useState(false);
   const history = useHistory();
+  const { slug } = useParams();
   const { username: currentUser } = user;
+
+  const deleteArticle = () => {
+    articleService
+      .deleteArticle(slug)
+      .then(() => history.push("/"))
+      .catch((err) => console.log(err));
+  };
+
   if (article) {
     const {
       title,
@@ -54,7 +67,11 @@ const Article = ({ article, isFull = false, user = {} }) => {
             ></img>
             {isFull && username === currentUser ? (
               <div className={classes["article__buttons"]}>
-                <Button className={classes["article__delete"]} type="danger">
+                <Button
+                  className={classes["article__delete"]}
+                  type="danger"
+                  onClick={() => setModalVisibility(true)}
+                >
                   Delete
                 </Button>
                 <Button
@@ -66,6 +83,12 @@ const Article = ({ article, isFull = false, user = {} }) => {
                 </Button>
               </div>
             ) : null}
+            {isModalVisible && (
+              <ModalWarning
+                onNoClick={() => setModalVisibility(false)}
+                onYesClick={deleteArticle}
+              />
+            )}
           </div>
         </header>
         <section className={classes["article__body"]}>
