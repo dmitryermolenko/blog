@@ -68,7 +68,7 @@ const EditArticlePage = () => {
   };
 
   if (!localStorage.getItem("token")) {
-    history.push("/");
+    history.push("/sign-in");
   }
 
   if (isLoading) {
