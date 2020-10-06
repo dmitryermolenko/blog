@@ -3,6 +3,7 @@ import ReactMarkdown from "react-markdown";
 import { connect } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import clsx from "clsx";
+import { format, parseISO } from "date-fns";
 import { Button } from "antd";
 import ModalWarning from "../ModalWarning/ModalWarning";
 import ArticlesService from "../../services/ArticlesServices";
@@ -30,17 +31,24 @@ const Article = ({
   const history = useHistory();
   const { username: currentUser } = user;
 
+  const token = localStorage.getItem("token");
+  const creatingTime = format(new Date(parseISO(createdAt)), "MMMM d, yyyy");
+  const likeClasses = clsx(
+    { [classes["article__like"]]: true },
+    { [classes["article__like--favorited"]]: isFavorite },
+    { [classes["article__like--disabled"]]: !token }
+  );
+  const likesCountClasses = clsx(
+    { [classes["article__likes-count"]]: true },
+    { [classes["article__likes-count--favorited"]]: isFavorite }
+  );
+
   const deleteArticle = () => {
     articlesService
       .deleteArticle(slug)
       .then(() => history.push("/"))
       .catch((err) => console.log(err));
   };
-
-  const buttonClasses = clsx(
-    { [classes["article__like"]]: true },
-    { [classes["article__like--favorited"]]: isFavorite }
-  );
 
   return (
     <article className={classes.article}>
@@ -56,20 +64,25 @@ const Article = ({
               </Link>
             </h2>
             <button
-              className={buttonClasses}
+              className={likeClasses}
               onClick={isFavorite ? onDislake : onLike}
+              disabled={!token ? true : false}
             ></button>
-            <span className={classes["article__likes-count"]}>
-              {favoritesCount}
-            </span>
+            <span className={likesCountClasses}>{favoritesCount}</span>
           </div>
-          <span className={classes["article__tags"]}>{tagList}</span>
+          <ul className={classes["article__tags"]}>
+            {tagList.map((tag) => (
+              <li key={Math.random()} className={classes["article__tags-item"]}>
+                {tag}
+              </li>
+            ))}
+          </ul>
           <p className={classes["article__description"]}>{description}</p>
         </div>
         <div className={classes["article__right"]}>
           <div className={classes["article__userinfo"]}>
-            <span>{username}</span>
-            <span>{createdAt}</span>
+            <span className={classes["article__username"]}>{username}</span>
+            <span>{creatingTime}</span>
           </div>
           <img
             className={classes["article__avatar"]}
