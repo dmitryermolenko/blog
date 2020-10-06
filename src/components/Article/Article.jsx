@@ -18,7 +18,6 @@ const Article = ({
     description,
     author: { username, image },
     favoritesCount,
-    favorited,
   },
   isFull = false,
   isFavorite,

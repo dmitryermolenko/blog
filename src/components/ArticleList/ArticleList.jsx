@@ -1,5 +1,5 @@
 import React from "react";
-import Article from "../Article/Article";
+import ArticleWrapper from "../../containers/ArticleWrapper/ArticleWrapper";
 import classes from "./ArticleList.module.scss";
 
 const ArticleList = ({ articles }) => {
@@ -8,12 +8,14 @@ const ArticleList = ({ articles }) => {
       {articles.map((article) => {
         return (
           <li key={article.slug}>
-            <Article article={article} />
+            <ArticleWrapper article={article} />
           </li>
         );
       })}
     </ul>
   );
 };
+
+/*const mapStateToProps = ({articlesData: articles}) => ({articles})*/
 
 export default ArticleList;
