@@ -4,7 +4,7 @@ export default class ArticlesService extends Component {
   async getArticles(pageNumber = 1) {
     const offset = pageNumber * 20 - 20;
     const response = await fetch(
-      `http://conduit.productionready.io/api/articles?offset=${offset}`
+      `https://conduit.productionready.io/api/articles?offset=${offset}`
     );
 
     if (!response.ok) {
@@ -17,7 +17,7 @@ export default class ArticlesService extends Component {
 
   async getArticle(slug) {
     const response = await fetch(
-      `http://conduit.productionready.io/api/articles/${slug}`
+      `https://conduit.productionready.io/api/articles/${slug}`
     );
 
     if (!response.ok) {
