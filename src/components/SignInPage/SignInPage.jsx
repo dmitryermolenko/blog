@@ -5,7 +5,7 @@ import { useForm, Controller } from "react-hook-form";
 import { Input, Button } from "antd";
 import ArticlesService from "../../services/ArticlesServices";
 import ErrorIndicator from "../ErrorIndicator/ErrorIndicator";
-import setUser from "../../actions/actions";
+import { setUser } from "../../actions/actions";
 import classes from "./SignInPage.module.scss";
 
 const SignInPage = ({ user = {}, setUser }) => {

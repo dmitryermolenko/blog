@@ -13,7 +13,6 @@
   display: flex;
 }
 
-
  .article__left {
   width: 50%;
   display: flex;
@@ -27,6 +26,8 @@
 }
 
 .article__title {
+  display: flex;
+  align-items: center;
   margin: 0;
   margin-right: 20px;
   padding: 0;
@@ -38,6 +39,33 @@
 .article__link {
   text-decoration: none;
   color: #1890FF;
+}
+
+.article__like {
+  width: 20px;
+  height: 20px;
+  align-self: center;
+  margin-right: 10px;
+  background-image: url('../../img/like-inactive.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.article__likes-count {
+  font-size: 20px;
+}
+
+.article__like:hover {
+  background-image: url('../../img/like-active.png');
+  transform: scale(1.2);
+}
+
+.article__like--favorited {
+  background-image: url('../../img/like-active.png');
 }
 
 .article__tags {

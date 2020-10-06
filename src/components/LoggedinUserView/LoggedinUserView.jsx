@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import UserInfo from "../UserInfo/UserInfo";
-import setUser from "../../actions/actions";
+import { setUser } from "../../actions/actions";
 import classes from "../Header/Header.module.scss";
 
 const LoggedinUserView = ({ user, setUser }) => {

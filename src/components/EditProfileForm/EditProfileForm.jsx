@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { Controller, useForm } from "react-hook-form";
 import { Input, Button } from "antd";
 import ArticlesService from "../../services/ArticlesServices";
-import setUser from "../../actions/actions";
+import { setUser } from "../../actions/actions";
 import classes from "../EditProfilePage/EditProfilePage.module.scss";
 
 const EditProfileForm = ({ user, setUser }) => {

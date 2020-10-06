@@ -136,4 +136,34 @@ export default class ArticlesService extends Component {
 
     return response.json();
   }
+
+  async setFavoriteArticle(slug) {
+    const response = await fetch(
+      `https://conduit.productionready.io/api/articles/${slug}/favorite`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+          Authorization: `Token ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    return response.json();
+  }
+
+  async setUnfavoriteArticle(slug) {
+    const response = await fetch(
+      `https://conduit.productionready.io/api/articles/${slug}/favorite`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+          Authorization: `Token ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    return response.json();
+  }
 }

@@ -1,8 +1,12 @@
 export const SET_USER = "SET_USER";
+export const SET_ARTICLES = "SET_ARTICLES";
 
-const setUser = (payload) => ({
+export const setUser = (payload) => ({
   type: SET_USER,
   user: payload,
 });
 
-export default setUser;
+export const setArticles = (payload) => ({
+  type: SET_ARTICLES,
+  articles: payload,
+});

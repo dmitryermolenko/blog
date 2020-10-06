@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 import ArticleList from "../../components/ArticleList/ArticleList";
 import ArticlesService from "../../services/ArticlesServices";
 import { Pagination, Spin } from "antd";
+import { setArticles } from "../../actions/actions";
 import classes from "./ArticleListPage.module.scss";
 
-const ArticleListPage = (props) => {
-  const [articles, setArticles] = useState([]);
+const ArticleListPage = ({ articles, setArticles }) => {
   const [activePage, setActivePage] = useState(1);
   const [isLoading, setLoadingStatus] = useState(true);
   const articlesService = new ArticlesService();
@@ -43,4 +44,9 @@ const ArticleListPage = (props) => {
   );
 };
 
-export default ArticleListPage;
+const mapStateToProps = ({ articlesData: articles }) => ({ articles });
+const mapDispatchToProps = {
+  setArticles,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ArticleListPage);

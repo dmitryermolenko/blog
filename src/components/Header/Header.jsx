@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import LoggedinUserView from "../LoggedinUserView/LoggedinUserView";
 import LoggedoutUserView from "../LoggedoutUserView/LoggedoutUserView";
 import ArticlesService from "../../services/ArticlesServices";
-import setUser from "../../actions/actions";
+import { setUser } from "../../actions/actions";
 import classes from "./Header.module.scss";
 
 const Header = ({ user, setUser }) => {
