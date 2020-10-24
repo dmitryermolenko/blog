@@ -5,19 +5,19 @@ import classes from "./ModalWarning.module.scss";
 const ModalWarning = ({ onNoClick, onYesClick }) => {
   return (
     <div className={classes.modal}>
-      <p className={classes["modal__question"]}>
+      <p className={classes.Modal__Question}>
         Are you sure to delete this article?
       </p>
-      <div className={classes["modal__buttons-wrapper"]}>
+      <div className={classes.Modal__ButtonsWrapper}>
         <Button
-          className={classes["modal__no-button"]}
+          className={classes.Modal__NoButton}
           type="primary"
           onClick={onNoClick}
         >
           No
         </Button>
         <Button
-          className={classes["modal__yes-button"]}
+          className={classes.Modal__YesButton}
           type="primary"
           onClick={onYesClick}
         >

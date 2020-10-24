@@ -8,13 +8,13 @@ import classes from "../Header/Header.module.scss";
 const LoggedinUserView = ({ user, setUser }) => {
   const history = useHistory();
   return (
-    <div className={classes["header__loggedin"]}>
-      <Link className={classes["header__create-article"]} to="/new-article">
+    <div className={classes.Header__Loggedin}>
+      <Link className={classes.Header__CreateArticle} to="/new-article">
         Create article
       </Link>
       {!user ? <span>Loading...</span> : <UserInfo />}
       <button
-        className={classes["header__logout"]}
+        className={classes.Header__Logout}
         onClick={() => {
           localStorage.removeItem("token");
           setUser({});

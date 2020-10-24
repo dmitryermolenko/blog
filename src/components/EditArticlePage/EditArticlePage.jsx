@@ -67,8 +67,8 @@ const EditArticlePage = () => {
   }
 
   return (
-    <div className={classes["article-page"]}>
-      <h2 className={classes["article-page__title"]}>Edit article</h2>
+    <div className={classes.ArticlePage}>
+      <h2 className={classes.ArticlePage__Title}>Edit article</h2>
       {currentArticle && (
         <ArticleForm onSubmitArticle={submitArticle} article={currentArticle} />
       )}

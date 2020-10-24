@@ -1,4 +1,4 @@
-.header {
+.Header {
   display: flex;
   padding: 20px 20px 15px;
   font-size: 18px;
@@ -6,40 +6,40 @@
   background-color: #FFFFFF; 
 }
 
-.header__title {
+.Header__Title {
   margin: 0;
   padding: 0;
 }
 
-.header__title-link {
+.Header__TitleLink {
   font-size: 18px;
   line-height: 28px;
   color: #000000;
 }
 
-.header__loggedout,
-.header__loggedin {
+.Header__Loggedout,
+.Header__Loggedin {
  display: flex;
  align-items: baseline;
  margin-left: auto;
 }
 
-.header__loggedout {
+.Header__Loggedout {
   align-items: flex-end;
 }
 
-.header__userinfo {
+.Header__Userinfo {
   display: flex;
   align-items: flex-end;
   margin-right: 25px;
 }
 
-.header__username {
+.Header__Username {
   color: #000000;
   margin-right: 10px;
 }
 
-.header__create-article {
+.Header__CreateArticle {
   margin-right: 20px;
   padding: 3px 5px;
   font-size: 16px;
@@ -48,17 +48,17 @@
   border-radius: 5px;
 }
 
-.header__create-article:active {
+.Header__CreateArticle:active {
   color: #52C41A;
   border-color: #52C41A;
 }
 
-.header__create-article:hover {
+.Header__CreateArticle:hover {
   color: #52C41A;
   border-color: #52C41A;
 }
 
-.header__logout {
+.Header__Logout {
   box-sizing: border-box;
   margin: 0;
   padding: 5px 10px;
@@ -71,28 +71,28 @@
   outline: none;
 }
 
-.header__logout:active,
-.header__logout:hover{
+.Header__Logout:active,
+.Header__Logout:hover{
   color: #52C41A;
   border-color: #52C41A;
 }
 
-.header__signin-link {
+.Header__SigninLink {
   margin-right: 20px;
   color: #000000;
 }
 
-.header__signup-link {
+.Header__SignupLink {
   color: #000000;
 }
 
-.header__signin-link:hover,
-.header__signup-link:hover {
+.Header__SigninLink:hover,
+.Header__SignupLink:hover {
   color: #52C41A;
 }
 
-.header__signin-link:active,
-.header__signup-link:active {
+.Header__SigninLink:active,
+.Header__SignupLink:active {
   color: #52C41A;
   border: 1px solid #52C41A;
   border-radius: 5px;

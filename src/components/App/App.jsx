@@ -13,9 +13,9 @@ import classes from "./App.module.scss";
 const App = () => {
   return (
     <Router>
-      <div className={classes.app}>
+      <div className={classes.App}>
         <Header />
-        <main className={classes.main}>
+        <main className={classes.Main}>
           <Route path="/" component={ArticleListPage} exact />
           <Route path="/articles" component={ArticleListPage} exact />
           <Route path="/articles/:slug" component={ArticlePage} exact />

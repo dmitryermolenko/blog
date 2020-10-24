@@ -20,9 +20,9 @@ const Header = ({ user, setUser }) => {
   }, []);
 
   return (
-    <header className={classes.header}>
-      <h1 className={classes["header__title"]}>
-        <Link className={classes["header__title-link"]} to="/">
+    <header className={classes.Header}>
+      <h1 className={classes.Header__Title}>
+        <Link className={classes.Header__TitleLink} to="/">
           Realworld Blog
         </Link>
       </h1>

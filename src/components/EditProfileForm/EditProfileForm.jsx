@@ -64,8 +64,8 @@ const EditProfileForm = ({ user, setUser }) => {
   };
 
   return (
-    <form className={classes.profile} onSubmit={handleSubmit(onSubmit)}>
-      <h1 className={classes["profile__title"]}>Edit profile</h1>
+    <form className={classes.Profile} onSubmit={handleSubmit(onSubmit)}>
+      <h1 className={classes.Profile__Title}>Edit profile</h1>
       <label htmlFor="username">Username</label>
       {errors.username && (
         <p style={{ margin: 0, color: "red" }}>{errors.username.message}</p>
@@ -75,7 +75,7 @@ const EditProfileForm = ({ user, setUser }) => {
         control={control}
         as={
           <Input
-            className={classes["profile__input"]}
+            className={classes.Profile__Input}
             id="username"
             placeholder="Username"
           />
@@ -93,7 +93,7 @@ const EditProfileForm = ({ user, setUser }) => {
         control={control}
         as={
           <Input
-            className={classes["profile__input"]}
+            className={classes.Profile__Input}
             id="email"
             placeholder="Email Address"
             type="email"
@@ -116,7 +116,7 @@ const EditProfileForm = ({ user, setUser }) => {
         control={control}
         as={
           <Input
-            className={classes["profile__input"]}
+            className={classes.Profile__Input}
             id="password"
             placeholder="New Password"
             type="password"
@@ -137,7 +137,7 @@ const EditProfileForm = ({ user, setUser }) => {
         control={control}
         render={() => (
           <Input
-            className={classes["profile__input"]}
+            className={classes.Profile__Input}
             id="image"
             placeholder="Avatar Image"
             onChange={(evt) => {
@@ -150,7 +150,7 @@ const EditProfileForm = ({ user, setUser }) => {
         }}
       />
       <Button
-        className={classes["profile__submit"]}
+        className={classes.Profile__Submit}
         type="primary"
         htmlType="submit"
       >

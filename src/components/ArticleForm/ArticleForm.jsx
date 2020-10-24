@@ -18,7 +18,7 @@ const ArticleForm = ({ onSubmitArticle, article = {} }) => {
   };
 
   return (
-    <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <label htmlFor="title">Title</label>
       {errors.title && <ErrorIndicator errorMessage={errors.title.message} />}
       <Controller
@@ -26,7 +26,7 @@ const ArticleForm = ({ onSubmitArticle, article = {} }) => {
         control={control}
         as={
           <Input
-            className={classes["form__input"]}
+            className={classes.Form__Input}
             id="title"
             placeholder="Title"
           />
@@ -42,7 +42,7 @@ const ArticleForm = ({ onSubmitArticle, article = {} }) => {
         control={control}
         as={
           <Input
-            className={classes["form__input"]}
+            className={classes.Form__Input}
             id="description"
             placeholder="Title"
           />
@@ -57,18 +57,14 @@ const ArticleForm = ({ onSubmitArticle, article = {} }) => {
         as={
           <Input.TextArea
             rows={10}
-            className={classes["form__input"]}
+            className={classes.Form__Input}
             id="body"
             placeholder="Text"
           />
         }
         rules={{ required: "Text is required" }}
       />
-      <Button
-        className={classes["form__submit"]}
-        type="primary"
-        htmlType="submit"
-      >
+      <Button className={classes.Form__Submit} type="primary" htmlType="submit">
         Send
       </Button>
     </form>

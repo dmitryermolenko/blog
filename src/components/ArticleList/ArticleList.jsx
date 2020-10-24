@@ -4,7 +4,7 @@ import classes from "./ArticleList.module.scss";
 
 const ArticleList = ({ articles }) => {
   return (
-    <ul className={classes["article-list"]}>
+    <ul className={classes.ArticleList}>
       {articles.map((article) => {
         return (
           <li key={article.slug}>
@@ -15,7 +15,5 @@ const ArticleList = ({ articles }) => {
     </ul>
   );
 };
-
-/*const mapStateToProps = ({articlesData: articles}) => ({articles})*/
 
 export default ArticleList;

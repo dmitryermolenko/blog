@@ -33,8 +33,8 @@ const NewArticlePage = () => {
     history.push("/sign-in");
   }
   return (
-    <div className={classes["article-page"]}>
-      <h2 className={classes["article-page__title"]}>Create new article</h2>
+    <div className={classes.ArticlePage}>
+      <h2 className={classes.ArticlePage__Title}>Create new article</h2>
       <ArticleForm onSubmitArticle={submitArticle} />
       <TagList
         tags={tags}

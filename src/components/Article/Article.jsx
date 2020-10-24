@@ -34,13 +34,13 @@ const Article = ({
   const token = localStorage.getItem("token");
   const creatingTime = format(new Date(parseISO(createdAt)), "MMMM d, yyyy");
   const likeClasses = clsx(
-    { [classes["article__like"]]: true },
-    { [classes["article__like--favorited"]]: isFavorite },
-    { [classes["article__like--disabled"]]: !token }
+    { [classes.Article__Like]: true },
+    { [classes.Article__Like_favorited]: isFavorite },
+    { [classes.Article__Like_disabled]: !token }
   );
   const likesCountClasses = clsx(
-    { [classes["article__likes-count"]]: true },
-    { [classes["article__likes-count--favorited"]]: isFavorite }
+    { [classes.Article__LikesCount]: true },
+    { [classes.Article__LikesCount_favorited]: isFavorite }
   );
 
   const deleteArticle = () => {
@@ -51,15 +51,12 @@ const Article = ({
   };
 
   return (
-    <article className={classes.article}>
-      <header className={classes["article__header"]}>
-        <div className={classes["article__left"]}>
-          <div className={classes["article__title-wrapper"]}>
-            <h2 className={classes["article__title"]}>
-              <Link
-                className={classes["article__link"]}
-                to={`/articles/${slug}`}
-              >
+    <article className={classes.Article}>
+      <header className={classes.Article__Header}>
+        <div className={classes.Article__Left}>
+          <div className={classes.Article__TitleWrapper}>
+            <h2 className={classes.Article__Title}>
+              <Link className={classes.Article__Link} to={`/articles/${slug}`}>
                 {title}
               </Link>
             </h2>
@@ -70,38 +67,38 @@ const Article = ({
             ></button>
             <span className={likesCountClasses}>{favoritesCount}</span>
           </div>
-          <ul className={classes["article__tags"]}>
+          <ul className={classes.Article__Tags}>
             {tagList.map((tag) => (
-              <li key={Math.random()} className={classes["article__tags-item"]}>
+              <li key={Math.random()} className={classes.Article__TagsItem}>
                 {tag}
               </li>
             ))}
           </ul>
-          <p className={classes["article__description"]}>{description}</p>
+          <p className={classes.Article__Description}>{description}</p>
         </div>
-        <div className={classes["article__right"]}>
-          <div className={classes["article__userinfo"]}>
-            <span className={classes["article__username"]}>{username}</span>
+        <div className={classes.Article__Right}>
+          <div className={classes.Article__Userinfo}>
+            <span className={classes.Article__Username}>{username}</span>
             <span>{creatingTime}</span>
           </div>
           <img
-            className={classes["article__avatar"]}
+            className={classes.Article__Avatar}
             src={image}
             width="46"
             height="46"
             alt="Avatar"
           ></img>
           {isFull && username === currentUser ? (
-            <div className={classes["article__buttons"]}>
+            <div className={classes.Article__Buttons}>
               <Button
-                className={classes["article__delete"]}
+                className={classes.Article__Delete}
                 type="danger"
                 onClick={() => setModalVisibility(true)}
               >
                 Delete
               </Button>
               <Button
-                className={classes["article__edit"]}
+                className={classes.Article__Edit}
                 type="primary"
                 onClick={() => history.push(`/articles/${slug}/edit`)}
               >
@@ -117,7 +114,7 @@ const Article = ({
           )}
         </div>
       </header>
-      <section className={classes["article__body"]}>
+      <section className={classes.Article__Body}>
         {isFull ? <ReactMarkdown source={body} /> : null}
       </section>
     </article>

@@ -1,19 +1,19 @@
-.tags__title {
+.Tags__Title {
   margin: 0;
   font-size: 14px;
 }
-.tags__list {
+.Tags__List {
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.tags__item {
+.Tags__Item {
   display: flex;
   margin-top: 10px;
 }
 
-.tags__tag {
+.Tags__Tag {
   width: 335px;
   padding: 10px;
   margin-right: 10px;
@@ -21,7 +21,7 @@
   border: 1px solid #D9D9D9;
 }
 
-button.tags__delete {
+button.Tags__Delete {
   display: flex;
   align-items: center;
   padding: 20px 28px;

@@ -44,9 +44,9 @@ const SignInPage = ({ user = {}, setUser }) => {
   }
 
   return (
-    <div className={classes.signin}>
+    <div className={classes.Signin}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <h1 className={classes["signin__title"]}>Sign In</h1>
+        <h1 className={classes.Signin__Title}>Sign In</h1>
         <label htmlFor="email">Email Address</label>
         {errors.email && <ErrorIndicator errorMessage={errors.email.message} />}
         <Controller
@@ -54,7 +54,7 @@ const SignInPage = ({ user = {}, setUser }) => {
           control={control}
           as={
             <Input
-              className={classes["signin__input"]}
+              className={classes.Signin__Input}
               id="email"
               placeholder="Email address"
               type="email"
@@ -78,7 +78,7 @@ const SignInPage = ({ user = {}, setUser }) => {
           control={control}
           as={
             <Input
-              className={classes["signin__input"]}
+              className={classes.Signin__Input}
               id="password"
               placeholder="Password"
               type="password"
@@ -89,7 +89,7 @@ const SignInPage = ({ user = {}, setUser }) => {
           }}
         />
         <Button
-          className={classes["signin__submit"]}
+          className={classes.Signin__Submit}
           type="primary"
           htmlType="submit"
         >
@@ -102,7 +102,7 @@ const SignInPage = ({ user = {}, setUser }) => {
           errorMessage={`email or password ${serverErrors["email or password"]}`}
         />
       )}
-      <p className={classes["signin__question"]}>
+      <p className={classes.Signin__Question}>
         Don't you have an account? <Link to="/sign-up">Sign Up</Link>
       </p>
     </div>

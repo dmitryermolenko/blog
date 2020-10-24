@@ -17,21 +17,21 @@ const TagsForm = ({ onAddTag }) => {
   };
 
   return (
-    <form className={classes.tagsForm} onSubmit={handleSubmit(addTag)}>
+    <form className={classes.TagsForm} onSubmit={handleSubmit(addTag)}>
       {errors.addingTag && (
         <ErrorIndicator errorMessage="Should not be empty" />
       )}
       <Controller
         name="addingTag"
         control={control}
-        as={<Input className={classes["tagsForm__input"]} placeholder="Tag" />}
+        as={<Input className={classes.TagsForm__Input} placeholder="Tag" />}
         rules={{
           validate: (value) => {
             return value.length !== 0;
           },
         }}
       />
-      <Button className={classes["tagsForm__submit"]} htmlType="submit">
+      <Button className={classes.TagsForm__Submit} htmlType="submit">
         Add tag
       </Button>
     </form>

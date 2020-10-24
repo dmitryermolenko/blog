@@ -90,9 +90,9 @@ const SignUpPage = () => {
     );
   }
   return (
-    <div className={classes.signup}>
+    <div className={classes.Signup}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <h1 className={classes["signup__title"]}>Sign Up</h1>
+        <h1 className={classes.Signup__Title}>Sign Up</h1>
         <label htmlFor="username">Username</label>
         {errors.username && (
           <ErrorIndicator errorMessage={errors.username.message} />
@@ -105,7 +105,7 @@ const SignUpPage = () => {
           control={control}
           render={() => (
             <Input
-              className={classes["signup__input"]}
+              className={classes.Signup__Input}
               id="username"
               placeholder="Username"
               onChange={(evt) => {
@@ -134,7 +134,7 @@ const SignUpPage = () => {
           control={control}
           render={() => (
             <Input
-              className={classes["signup__input"]}
+              className={classes.Signup__Input}
               id="email"
               placeholder="Email Address"
               onChange={(evt) => {
@@ -162,7 +162,7 @@ const SignUpPage = () => {
           control={control}
           render={() => (
             <Input
-              className={classes["signup__input"]}
+              className={classes.Signup__Input}
               id="password"
               placeholder="Password"
               type="password"
@@ -189,7 +189,7 @@ const SignUpPage = () => {
           control={control}
           render={() => (
             <Input
-              className={classes["signup__input"]}
+              className={classes.Signup__Input}
               id="repeat"
               placeholder="Repeat Password"
               type="password"
@@ -203,10 +203,10 @@ const SignUpPage = () => {
         {errors.agreement && (
           <p style={{ margin: 0, color: "red" }}>{errors.agreement.message}</p>
         )}
-        <label className={classes["signup__label"]}>
+        <label className={classes.Signup__Label}>
           <input
             name="agreement"
-            className={classes["signup__checkbox"]}
+            className={classes.Signup__Checkbox}
             type="checkbox"
             ref={register({
               required: "Please tick the checkbox below if you want to proceed",
@@ -215,13 +215,13 @@ const SignUpPage = () => {
           I agree to the processing of my personal information
         </label>
         <Button
-          className={classes["signup__submit"]}
+          className={classes.Signup__Submit}
           type="primary"
           htmlType="submit"
         >
           Create
         </Button>
-        <p className={classes["signup__question"]}>
+        <p className={classes.Signup__Question}>
           Already have an account? <Link to="/sign-in">Sign In</Link>
         </p>
       </form>

@@ -5,14 +5,14 @@ import classes from "./TagList.module.scss";
 const TagList = ({ tags, onDeleteTag }) => {
   return (
     <div>
-      <h3 className={classes["tags__title"]}>Tags</h3>
-      <ul className={classes["tags__list"]}>
+      <h3 className={classes.Tags__Title}>Tags</h3>
+      <ul className={classes.Tags__List}>
         {tags.map(({ id, name }) => {
           return (
-            <li key={id} className={classes["tags__item"]}>
-              <span className={classes["tags__tag"]}>{name}</span>
+            <li key={id} className={classes.Tags__Item}>
+              <span className={classes.Tags__Tag}>{name}</span>
               <Button
-                className={classes["tags__delete"]}
+                className={classes.Tags__Delete}
                 onClick={() => {
                   onDeleteTag(id);
                 }}
