@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { useForm, Controller } from "react-hook-form";
-import { Input, Button, Alert } from "antd";
-import ErrorIndicator from "../ErrorIndicator/ErrorIndicator";
+import { Button, Alert } from "antd";
+import SignUpForm from "../SingUpForm/SignUpForm";
 import ArticlesService from "../../services/ArticlesServices";
-import classes from "./SignUpPage.module.scss";
 
 const SignUpPage = () => {
   const articlesService = new ArticlesService();
@@ -16,40 +14,7 @@ const SignUpPage = () => {
   });
   const [isSignUpSuccessfull, setSuccessfullSignUp] = useState(false);
 
-  const {
-    register,
-    control,
-    handleSubmit,
-    errors,
-    getValues,
-    setError,
-    setValue,
-    clearErrors,
-  } = useForm({
-    mode: "onChange",
-    defaultValues: {
-      username: "",
-      email: "",
-      password: "",
-      repeat: "",
-    },
-  });
-
-  const checkPasswordMatching = () => {
-    const password = getValues("password");
-    const passwordRepeat = getValues("repeat");
-    if (password !== passwordRepeat) {
-      setError("repeat", {
-        type: "manual",
-        message:
-          "The values entered for Password and Repeat Password do not match",
-      });
-    } else {
-      clearErrors("repeat");
-    }
-  };
-
-  const onSubmit = ({ username, email, password }) => {
+  const handlerSubmit = ({ username, email, password }) => {
     const requestBody = {
       user: {
         username,
@@ -89,143 +54,13 @@ const SignUpPage = () => {
       </>
     );
   }
+
   return (
-    <div className={classes.Signup}>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <h1 className={classes.Signup__Title}>Sign Up</h1>
-        <label htmlFor="username">Username</label>
-        {errors.username && (
-          <ErrorIndicator errorMessage={errors.username.message} />
-        )}
-        {serverErrors.username && (
-          <ErrorIndicator errorMessage={serverErrors.username} />
-        )}
-        <Controller
-          name="username"
-          control={control}
-          render={() => (
-            <Input
-              className={classes.Signup__Input}
-              id="username"
-              placeholder="Username"
-              onChange={(evt) => {
-                setValue("username", evt.target.value, {
-                  shouldValidate: true,
-                });
-                if (serverErrors.username) {
-                  setServerErrors({ ...serverErrors, username: null });
-                }
-              }}
-            />
-          )}
-          rules={{
-            required: "Username is required",
-            minLength: { value: 3, message: "Min length is 3 characters" },
-            maxLength: { value: 20, message: "Max length is 20 characters" },
-          }}
-        />
-        <label htmlFor="email">Email Address</label>
-        {errors.email && <ErrorIndicator errorMessage={errors.email.message} />}
-        {serverErrors.email && (
-          <ErrorIndicator errorMessage={serverErrors.email} />
-        )}
-        <Controller
-          name="email"
-          control={control}
-          render={() => (
-            <Input
-              className={classes.Signup__Input}
-              id="email"
-              placeholder="Email Address"
-              onChange={(evt) => {
-                setValue("email", evt.target.value, { shouldValidate: true });
-                if (serverErrors.email) {
-                  setServerErrors({ ...serverErrors, email: null });
-                }
-              }}
-            />
-          )}
-          rules={{
-            required: "Email is required",
-            pattern: {
-              value: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
-              message: "Invalid email format",
-            },
-          }}
-        />
-        <label htmlFor="password">Password</label>
-        {errors.password && (
-          <ErrorIndicator errorMessage={errors.password.message} />
-        )}
-        <Controller
-          name="password"
-          control={control}
-          render={() => (
-            <Input
-              className={classes.Signup__Input}
-              id="password"
-              placeholder="Password"
-              type="password"
-              onChange={(evt) => {
-                setValue("password", evt.target.value, {
-                  shouldValidate: true,
-                });
-                checkPasswordMatching();
-              }}
-            />
-          )}
-          rules={{
-            required: "Password is required",
-            minLength: { value: 6, message: "Min length is 6 characters" },
-            maxLength: { value: 40, message: "Max length is 40 characters" },
-          }}
-        />
-        <label htmlFor="password-repeat">Repeat Password</label>
-        {errors.repeat && (
-          <p style={{ margin: 0, color: "red" }}>{errors.repeat.message}</p>
-        )}
-        <Controller
-          name="repeat"
-          control={control}
-          render={() => (
-            <Input
-              className={classes.Signup__Input}
-              id="repeat"
-              placeholder="Repeat Password"
-              type="password"
-              onChange={(evt) => {
-                setValue("repeat", evt.target.value);
-                checkPasswordMatching();
-              }}
-            />
-          )}
-        />
-        {errors.agreement && (
-          <p style={{ margin: 0, color: "red" }}>{errors.agreement.message}</p>
-        )}
-        <label className={classes.Signup__Label}>
-          <input
-            name="agreement"
-            className={classes.Signup__Checkbox}
-            type="checkbox"
-            ref={register({
-              required: "Please tick the checkbox below if you want to proceed",
-            })}
-          />
-          I agree to the processing of my personal information
-        </label>
-        <Button
-          className={classes.Signup__Submit}
-          type="primary"
-          htmlType="submit"
-        >
-          Create
-        </Button>
-        <p className={classes.Signup__Question}>
-          Already have an account? <Link to="/sign-in">Sign In</Link>
-        </p>
-      </form>
-    </div>
+    <SignUpForm
+      onSubmit={handlerSubmit}
+      serverErrors={serverErrors}
+      setServerErrors={setServerErrors}
+    />
   );
 };
 

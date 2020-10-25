@@ -23,12 +23,26 @@
   text-align: center;
 }
 
-input.Signup__Input {
+.Signup__Input {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
   margin-bottom: 20px;
   padding-top: 10px;
   padding-bottom: 10px;
+  padding-left: 10px;
   font-size: 14px;
   line-height: 22px;
+  border: 1px solid #d9d9d9;
+  border-radius: 2px;
+  outline: none;
+}
+
+.Signup__Input::-webkit-input-placeholder,
+.Signup__Input:-ms-input-placeholder,
+.Signup__Input::-ms-input-placeholder,
+.Signup__Input::placeholder  { 
+  color: grey; 
 }
 
 .Signup__Label {
