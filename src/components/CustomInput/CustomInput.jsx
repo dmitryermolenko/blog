@@ -2,7 +2,7 @@ import React from "react";
 import ErrorIndicator from "../ErrorIndicator/ErrorIndicator";
 import classes from "../SignUpPage/SignUpPage.module.scss";
 
-const Input = ({
+const CustomInput = ({
   name,
   id,
   placeholder,
@@ -33,4 +33,4 @@ const Input = ({
   );
 };
 
-export default Input;
+export default React.memo(CustomInput);

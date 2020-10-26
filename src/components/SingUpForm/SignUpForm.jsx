@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useCallback, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import ErrorIndicator from "../ErrorIndicator/ErrorIndicator";
-import CustomInput from "../Input/Input";
+import CustomInput from "../CustomInput/CustomInput";
 import { Button } from "antd";
 import classes from "../SignUpPage/SignUpPage.module.scss";
 
@@ -18,7 +18,44 @@ const SignUpForm = ({ onSubmit, serverErrors, setServerErrors }) => {
     mode: "onChange",
   });
 
-  const handlerCheckPasswordMatching = (evt) => {
+  const emailRegExp = useMemo(
+    () =>
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
+    []
+  );
+  const usernameSettingsValidation = useMemo(
+    () =>
+      register({
+        required: "Username is required",
+        minLength: { value: 3, message: "Min length is 3 characters" },
+        maxLength: { value: 20, message: "Max length is 20 characters" },
+      }),
+    [register]
+  );
+
+  const emailSettingsValidation = useMemo(
+    () =>
+      register({
+        required: "Email is required",
+        pattern: {
+          value: emailRegExp,
+          message: "Invalid email format",
+        },
+      }),
+    [register, emailRegExp]
+  );
+
+  const passwordSettingsValidation = useMemo(
+    () =>
+      register({
+        required: "Password is required",
+        minLength: { value: 6, message: "Min length is 6 characters" },
+        maxLength: { value: 40, message: "Max length is 40 characters" },
+      }),
+    [register]
+  );
+
+  const passwordMatchingCheckHandler = useCallback(() => {
     const repeat = getValues("repeat");
     const password = getValues("password");
 
@@ -35,13 +72,16 @@ const SignUpForm = ({ onSubmit, serverErrors, setServerErrors }) => {
       });
       return;
     }
-  };
+  }, [clearErrors, getValues, setError]);
 
-  const handlerChange = (name) => {
-    if (serverErrors[name]) {
-      setServerErrors({ ...serverErrors, [name]: null });
-    }
-  };
+  const inputChangeHandler = useCallback(
+    (name) => {
+      if (serverErrors[name]) {
+        setServerErrors({ ...serverErrors, [name]: null });
+      }
+    },
+    [serverErrors, setServerErrors]
+  );
 
   return (
     <div className={classes.Signup}>
@@ -54,12 +94,8 @@ const SignUpForm = ({ onSubmit, serverErrors, setServerErrors }) => {
           type="text"
           errors={errors}
           serverErrors={serverErrors}
-          reference={register({
-            required: "Username is required",
-            minLength: { value: 3, message: "Min length is 3 characters" },
-            maxLength: { value: 20, message: "Max length is 20 characters" },
-          })}
-          onChange={handlerChange}
+          reference={usernameSettingsValidation}
+          onChange={inputChangeHandler}
         />
         <CustomInput
           name="email"
@@ -68,14 +104,8 @@ const SignUpForm = ({ onSubmit, serverErrors, setServerErrors }) => {
           type="email"
           errors={errors}
           serverErrors={serverErrors}
-          reference={register({
-            required: "Email is required",
-            pattern: {
-              value: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
-              message: "Invalid email format",
-            },
-          })}
-          onChange={handlerChange}
+          reference={emailSettingsValidation}
+          onChange={inputChangeHandler}
         />
 
         <CustomInput
@@ -85,12 +115,8 @@ const SignUpForm = ({ onSubmit, serverErrors, setServerErrors }) => {
           type="password"
           errors={errors}
           serverErrors={serverErrors}
-          reference={register({
-            required: "Password is required",
-            minLength: { value: 6, message: "Min length is 6 characters" },
-            maxLength: { value: 40, message: "Max length is 40 characters" },
-          })}
-          onChange={handlerCheckPasswordMatching}
+          reference={passwordSettingsValidation}
+          onChange={passwordMatchingCheckHandler}
         />
 
         <CustomInput
@@ -101,7 +127,7 @@ const SignUpForm = ({ onSubmit, serverErrors, setServerErrors }) => {
           errors={errors}
           serverErrors={serverErrors}
           reference={register}
-          onChange={handlerCheckPasswordMatching}
+          onChange={passwordMatchingCheckHandler}
         />
 
         {errors.agreement && (

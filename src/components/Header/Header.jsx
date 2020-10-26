@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import LoggedinUserView from "../LoggedinUserView/LoggedinUserView";
@@ -8,7 +8,7 @@ import { setUser } from "../../actions/actions";
 import classes from "./Header.module.scss";
 
 const Header = ({ user, setUser }) => {
-  const articlesService = new ArticlesService();
+  const articlesService = useMemo(() => new ArticlesService(), []);
   useEffect(() => {
     if (localStorage.getItem("token") && !user) {
       articlesService

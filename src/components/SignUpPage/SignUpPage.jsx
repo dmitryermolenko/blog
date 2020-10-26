@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { Button, Alert } from "antd";
@@ -6,7 +6,7 @@ import SignUpForm from "../SingUpForm/SignUpForm";
 import ArticlesService from "../../services/ArticlesServices";
 
 const SignUpPage = () => {
-  const articlesService = new ArticlesService();
+  const articlesService = useMemo(() => new ArticlesService(), []);
 
   const [serverErrors, setServerErrors] = useState({
     email: null,
