@@ -3,6 +3,7 @@ import ReactMarkdown from "react-markdown";
 import { connect } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import clsx from "clsx";
+import { v4 as uuidv4 } from "uuid";
 import { format, parseISO } from "date-fns";
 import { Button } from "antd";
 import ModalWarning from "../ModalWarning/ModalWarning";
@@ -69,7 +70,7 @@ const Article = ({
           </div>
           <ul className={classes.Article__Tags}>
             {tagList.map((tag) => (
-              <li key={Math.random()} className={classes.Article__TagsItem}>
+              <li key={uuidv4()} className={classes.Article__TagsItem}>
                 {tag}
               </li>
             ))}
