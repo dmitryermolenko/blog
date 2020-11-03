@@ -13,12 +13,14 @@ const SignInPage = ({ user = {}, setUser }) => {
   const [serverErrors, setServerErrors] = useState({
     "email or password": null,
   });
+  const [isRequestSending, setRequestSending] = useState(false);
 
   const { control, handleSubmit, errors } = useForm({
     mode: "onChange",
   });
 
   const onSubmit = ({ email, password }) => {
+    setRequestSending(true);
     const requestBody = {
       user: {
         email,
@@ -29,14 +31,19 @@ const SignInPage = ({ user = {}, setUser }) => {
     articlesService
       .loginUser(requestBody)
       .then((response) => {
-        if (response.errors) {
+        setRequestSending(false);
+        if (response.errors["email or password"]) {
+          console.log(response.errors["email or password"]);
           setServerErrors(response.errors);
           return;
         }
         localStorage.setItem("token", response.user.token);
         setUser(response.user);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setRequestSending(false);
+        console.log(err);
+      });
   };
 
   if (localStorage.getItem("token")) {
@@ -63,7 +70,7 @@ const SignInPage = ({ user = {}, setUser }) => {
           rules={{
             required: "Email is required",
             pattern: {
-              value: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
+              value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
               message: "Invalid email format",
             },
           }}
@@ -92,6 +99,7 @@ const SignInPage = ({ user = {}, setUser }) => {
           className={classes.Signin__Submit}
           type="primary"
           htmlType="submit"
+          disabled={isRequestSending ? true : false}
         >
           Login
         </Button>
