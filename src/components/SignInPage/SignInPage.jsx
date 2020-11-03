@@ -32,9 +32,8 @@ const SignInPage = ({ user = {}, setUser }) => {
       .loginUser(requestBody)
       .then((response) => {
         setRequestSending(false);
-        if (response.errors["email or password"]) {
-          console.log(response.errors["email or password"]);
-          setServerErrors(response.errors);
+        if (response.errors) {
+          setServerErrors(response.errors["email or password"]);
           return;
         }
         localStorage.setItem("token", response.user.token);

@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Header from "../Header/Header";
 import ArticleListPage from "../../containers/ArticleListPage/ArticleListPage";
 import ArticlePage from "../../containers/ArticlePage/ArticlePage";
@@ -16,18 +16,21 @@ const App = () => {
       <div className={classes.App}>
         <Header />
         <main className={classes.Main}>
-          <Route path="/" component={ArticleListPage} exact />
-          <Route path="/articles" component={ArticleListPage} exact />
-          <Route path="/articles/:slug" component={ArticlePage} exact />
-          <Route path="/sign-in" component={SignInPage} exact />
-          <Route path="/sign-up" component={SignUpPage} exact />
-          <Route path="/profile" component={EditProfilePage} exact />
-          <Route path="/new-article" component={NewArticlePage} exact />
-          <Route
-            path="/articles/:slug/edit"
-            component={EditArticlePage}
-            exact
-          />
+          <Switch>
+            <Route path="/" component={ArticleListPage} exact />
+            <Route path="/articles" component={ArticleListPage} exact />
+            <Route path="/articles/:slug" component={ArticlePage} exact />
+            <Route path="/sign-in" component={SignInPage} exact />
+            <Route path="/sign-up" component={SignUpPage} exact />
+            <Route path="/profile" component={EditProfilePage} exact />
+            <Route path="/new-article" component={NewArticlePage} exact />
+            <Route
+              path="/articles/:slug/edit"
+              component={EditArticlePage}
+              exact
+            />
+            <Route component={ArticleListPage} />
+          </Switch>
         </main>
       </div>
     </Router>
