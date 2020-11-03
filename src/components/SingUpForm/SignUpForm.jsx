@@ -18,11 +18,7 @@ const SignUpForm = ({ onSubmit, serverErrors, setServerErrors }) => {
     mode: "onChange",
   });
 
-  const emailRegExp = useMemo(
-    () =>
-      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
-    []
-  );
+  const emailRegExp = useMemo(() => /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/, []);
   const usernameSettingsValidation = useMemo(
     () =>
       register({
