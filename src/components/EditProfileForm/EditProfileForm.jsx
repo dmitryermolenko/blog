@@ -14,6 +14,7 @@ const EditProfileForm = ({ user, setUser }) => {
     if (user) {
       setValue("username", `${user.username}`);
       setValue("email", `${user.email}`);
+      setValue("image", `${user.image}`);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -28,13 +29,15 @@ const EditProfileForm = ({ user, setUser }) => {
     setValue,
   } = useForm({
     mode: "onChange",
-    defaultValues: {
+    /*defaultValues: {
       image: "",
-    },
+    },*/
   });
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = ({ username, email, password, image }) => {
+    const data = {
+      user: { username, email, password, image },
+    };
     articlesService
       .updateUser(data)
       .then(({ user }) => {
@@ -102,7 +105,7 @@ const EditProfileForm = ({ user, setUser }) => {
         rules={{
           required: "Email is required",
           pattern: {
-            value: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
+            value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
             message: "Invalid email format",
           },
         }}
@@ -135,7 +138,7 @@ const EditProfileForm = ({ user, setUser }) => {
       <Controller
         name="image"
         control={control}
-        render={() => (
+        as={
           <Input
             className={classes.Profile__Input}
             id="image"
@@ -144,7 +147,7 @@ const EditProfileForm = ({ user, setUser }) => {
               validateUrl(evt.target.value);
             }}
           />
-        )}
+        }
         rules={{
           required: false,
         }}
