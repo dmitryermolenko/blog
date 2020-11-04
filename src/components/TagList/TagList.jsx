@@ -1,5 +1,4 @@
 import React from "react";
-import { Button } from "antd";
 import classes from "./TagList.module.scss";
 
 const TagList = ({ tags, onDeleteTag }) => {
@@ -10,15 +9,14 @@ const TagList = ({ tags, onDeleteTag }) => {
         {tags.map(({ id, name }) => {
           return (
             <li key={id} className={classes.Tags__Item}>
-              <span className={classes.Tags__Tag}>{name}</span>
-              <Button
-                className={classes.Tags__Delete}
+              <div
+                className={classes.Tags__Tag}
                 onClick={() => {
                   onDeleteTag(id);
                 }}
               >
-                Delete
-              </Button>
+                {name}
+              </div>
             </li>
           );
         })}
