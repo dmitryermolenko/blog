@@ -88,17 +88,19 @@ const Article = ({
           <p className={classes.Article__Description}>{description}</p>
         </div>
         <div className={classes.Article__Right}>
-          <div className={classes.Article__Userinfo}>
-            <span className={classes.Article__Username}>{username}</span>
-            <span>{creatingTime}</span>
+          <div className={classes.Article__UserinfoWrapper}>
+            <div className={classes.Article__Userinfo}>
+              <span className={classes.Article__Username}>{username}</span>
+              <span>{creatingTime}</span>
+            </div>
+            <img
+              className={classes.Article__Avatar}
+              src={image}
+              width="46"
+              height="46"
+              alt="Avatar"
+            ></img>
           </div>
-          <img
-            className={classes.Article__Avatar}
-            src={image}
-            width="46"
-            height="46"
-            alt="Avatar"
-          ></img>
           {isFull && username === currentUser ? (
             <div className={classes.Article__Buttons}>
               <Button
