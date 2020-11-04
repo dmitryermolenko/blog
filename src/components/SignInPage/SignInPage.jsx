@@ -33,7 +33,7 @@ const SignInPage = ({ user = {}, setUser }) => {
       .then((response) => {
         setRequestSending(false);
         if (response.errors) {
-          setServerErrors(response.errors["email or password"]);
+          setServerErrors(response.errors);
           return;
         }
         localStorage.setItem("token", response.user.token);

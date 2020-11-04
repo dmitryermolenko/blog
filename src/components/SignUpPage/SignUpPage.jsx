@@ -1,18 +1,17 @@
 import React, { useState, useMemo } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { Button, Alert } from "antd";
 import SignUpForm from "../SingUpForm/SignUpForm";
+import { setUser } from "../../actions/actions";
 import ArticlesService from "../../services/ArticlesServices";
 
-const SignUpPage = () => {
+const SignUpPage = ({ setUser }) => {
   const articlesService = useMemo(() => new ArticlesService(), []);
 
   const [serverErrors, setServerErrors] = useState({
     email: null,
     username: null,
   });
-  const [isSignUpSuccessfull, setSuccessfullSignUp] = useState(false);
 
   const handlerSubmit = ({ username, email, password }) => {
     const requestBody = {
@@ -31,28 +30,14 @@ const SignUpPage = () => {
           return;
         }
 
-        setSuccessfullSignUp(true);
+        localStorage.setItem("token", response.user.token);
+        setUser(response.user);
       })
       .catch((err) => console.log(err));
   };
 
   if (localStorage.getItem("token")) {
     return <Redirect to="/" />;
-  }
-
-  if (isSignUpSuccessfull) {
-    return (
-      <>
-        <Alert
-          description="Registration compleated successfully"
-          type="success"
-          showIcon
-        />
-        <Link to="/sign-in">
-          <Button type="primary">Back to Login Page</Button>
-        </Link>
-      </>
-    );
   }
 
   return (
@@ -65,5 +50,6 @@ const SignUpPage = () => {
 };
 
 const mapStateToProps = ({ userData: { user } }) => ({ user });
+const mapDispatchToProps = { setUser };
 
-export default connect(mapStateToProps)(SignUpPage);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpPage);
