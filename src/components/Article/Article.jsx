@@ -6,6 +6,7 @@ import clsx from "clsx";
 import { v4 as uuidv4 } from "uuid";
 import { format, parseISO } from "date-fns";
 import { Button } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 import ModalWarning from "../ModalWarning/ModalWarning";
 import ArticlesService from "../../services/ArticlesServices";
 import classes from "./Article.module.scss";
@@ -26,6 +27,7 @@ const Article = ({
   user = {},
   onLike,
   onDislake,
+  isLikeRequestSending,
 }) => {
   const articlesService = new ArticlesService();
   const [isModalVisible, setModalVisibility] = useState(false);
@@ -42,6 +44,19 @@ const Article = ({
   const likesCountClasses = clsx(
     { [classes.Article__LikesCount]: true },
     { [classes.Article__LikesCount_favorited]: isFavorite }
+  );
+
+  const likeContent = isLikeRequestSending ? (
+    <LoadingOutlined style={{ fontSize: 30 }} spin />
+  ) : (
+    <>
+      <button
+        className={likeClasses}
+        onClick={isFavorite ? onDislake : onLike}
+        disabled={!token ? true : false}
+      ></button>
+      <span className={likesCountClasses}>{favoritesCount}</span>
+    </>
   );
 
   const deleteArticle = () => {
@@ -61,12 +76,7 @@ const Article = ({
                 {title}
               </Link>
             </h2>
-            <button
-              className={likeClasses}
-              onClick={isFavorite ? onDislake : onLike}
-              disabled={!token ? true : false}
-            ></button>
-            <span className={likesCountClasses}>{favoritesCount}</span>
+            {likeContent}
           </div>
           <ul className={classes.Article__Tags}>
             {tagList.map((tag) => (
